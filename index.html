@@ -7,6 +7,11 @@
   <style>
     :root {
       --accent: #0033cc;
+      --border: #888;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
@@ -15,7 +20,6 @@
       line-height: 1.5;
       color: #111;
       padding: 2rem;
-      box-sizing: border-box;
     }
 
     h1,
@@ -46,29 +50,25 @@
       align-items: start;
     }
 
-    /* --- LEFT COLUMN --- */
+    /* --- LEFT COLUMN (FORMULAS) --- */
     .formula {
       max-width: 35rem;
     }
 
-    .formula h2 {
-      font-size: 1.4rem;
-    }
-
     .formula h3 {
-      margin-top: 1.5rem;
+      margin-top: 1.25rem;
       margin-bottom: 0.25rem;
       font-size: 1.05rem;
       font-weight: 600;
     }
 
-    .formula .calc {
+    .calc {
       font-style: italic;
       font-size: 1.05rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
 
-    .formula .sub {
+    .sub {
       font-size: 0.9rem;
       color: #555;
     }
@@ -77,15 +77,32 @@
       color: var(--accent);
     }
 
-    /* --- RIGHT COLUMN TABLE --- */
+    /* --- RIGHT COLUMN (INPUTS/OUTPUTS) --- */
     table {
       width: 100%;
       border-collapse: collapse;
+      font-size: 0.95rem;
     }
 
     td {
-      border: 1px solid #aaa;
-      height: 90px;
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.8rem;
+    }
+
+    td:first-child {
+      font-weight: 600;
+      background: #f7f7f7;
+      width: 50%;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.3rem 0.4rem;
+    }
+
+    .output {
+      font-weight: 600;
     }
   </style>
 </head>
@@ -94,7 +111,7 @@
     <!-- Top placeholder rectangle -->
     <div class="chart" aria-label="Working area / diagram placeholder"></div>
 
-    <!-- Bottom section: formulas + input table -->
+    <!-- Bottom section: formulas + interactive table -->
     <div class="lower">
       <section class="formula">
         <h2>Shaping length</h2>
@@ -103,25 +120,80 @@
         <p class="calc">shaping length × row gauge</p>
 
         <h3>Shaping rate</h3>
-        <p class="calc">approx # rows ÷ (<em># decs – 1</em>)<br />
+        <p class="calc">approx # rows ÷ (<em># decs − 1</em>)<br />
           <span class="sub">rounded to nearest even row</span>
         </p>
 
         <h3 class="blue">Actual number of rows needed</h3>
-        <p class="calc">[shaping rate × (<em># decs – 1</em>)] + 1</p>
+        <p class="calc">[shaping rate × (<em># decs − 1</em>)] + 1</p>
 
         <p class="sub">If significantly over or under Approximate rows, adjust starting row of shaping up or down a few rows.</p>
       </section>
 
       <section>
-        <table aria-label="Work table">
-          <tr><td></td></tr>
-          <tr><td></td></tr>
-          <tr><td></td></tr>
-          <tr><td></td></tr>
+        <table aria-label="Shaping calculator">
+          <tr>
+            <td>Shaping length</td>
+            <td><input id="shapeLen" type="number" step="0.01" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Row gauge<br /><span class="sub">(rows per unit length)</span></td>
+            <td><input id="rowGauge" type="number" step="0.01" min="0" /></td>
+          </tr>
+          <tr>
+            <td># decreases</td>
+            <td><input id="numDecs" type="number" step="1" min="2" /></td>
+          </tr>
+          <tr>
+            <td>Approx. # rows</td>
+            <td class="output" id="approxRows">—</td>
+          </tr>
+          <tr>
+            <td>Shaping rate<br /><span class="sub">(even rows)</span></td>
+            <td class="output" id="shapeRate">—</td>
+          </tr>
+          <tr>
+            <td>Actual total rows</td>
+            <td class="output" id="actualRows">—</td>
+          </tr>
         </table>
       </section>
     </div>
   </div>
+
+  <script>
+    const shapeLen = document.getElementById("shapeLen");
+    const rowGauge = document.getElementById("rowGauge");
+    const numDecs = document.getElementById("numDecs");
+    const approxRowsEl = document.getElementById("approxRows");
+    const shapeRateEl = document.getElementById("shapeRate");
+    const actualRowsEl = document.getElementById("actualRows");
+
+    [shapeLen, rowGauge, numDecs].forEach((el) => el.addEventListener("input", compute));
+
+    function roundEven(n) {
+      return Math.max(2, Math.round(n / 2) * 2); // ensure at least 2 rows
+    }
+
+    function compute() {
+      const len = parseFloat(shapeLen.value);
+      const gauge = parseFloat(rowGauge.value);
+      const decs = parseInt(numDecs.value, 10);
+
+      if (!isFinite(len) || !isFinite(gauge) || !isFinite(decs) || decs < 2) {
+        approxRowsEl.textContent = shapeRateEl.textContent = actualRowsEl.textContent = "—";
+        return;
+      }
+
+      const approxRows = len * gauge;
+      const rawRate = approxRows / (decs - 1);
+      const evenRate = roundEven(rawRate);
+      const actualRows = evenRate * (decs - 1) + 1;
+
+      approxRowsEl.textContent = approxRows.toFixed(1);
+      shapeRateEl.textContent = evenRate;
+      actualRowsEl.textContent = actualRows;
+    }
+  </script>
 </body>
 </html>
