@@ -28,6 +28,7 @@
             font-size: 2em;
             color: #555;
             background-color: #fff;
+            text-align: center;
         }
         .main-content {
             display: flex;
@@ -57,13 +58,6 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        .formula {
-            font-family: monospace;
-            background-color: #eee;
-            padding: 5px;
-            border-radius: 3px;
-            display: inline-block;
-        }
         .result-box {
             border: 1px solid #ccc;
             padding: 15px;
@@ -73,7 +67,7 @@
             display: flex;
             align-items: center;
         }
-        .footer-note {
+        .footer-note, .assumption-note {
             margin-top: 20px;
             font-style: italic;
             color: #666;
@@ -117,14 +111,18 @@
                     <input type="number" id="rowGauge" placeholder="e.g., 5">
                 </div>
                  <div class="input-group">
-                    <label for="numDecs">Number of Decreases (# decs)</label>
-                    <input type="number" id="numDecs" placeholder="e.g., 15">
+                    <label for="totalDecs">Total Stitches to Decrease</label>
+                    <input type="number" id="totalDecs" placeholder="e.g., 24">
                 </div>
                 
                 <button onclick="calculateShaping()">Calculate</button>
 
+                <div class="assumption-note">
+                    <p><strong>Note:</strong> This calculation assumes you are decreasing 2 stitches on each decrease row (e.g., one on each side).</p>
+                </div>
+
                 <div class="footer-note">
-                    <p>If significantly over or under Approximate rows, adjust starting row of shaping up or down a few rows.</p>
+                    <p>If the actual rows needed is significantly over or under the approximate rows, consider adjusting your plan.</p>
                 </div>
 
             </div>
@@ -149,36 +147,48 @@
             // Get values from input fields
             const shapingLength = parseFloat(document.getElementById('shapingLength').value);
             const rowGauge = parseFloat(document.getElementById('rowGauge').value);
-            const numDecs = parseInt(document.getElementById('numDecs').value, 10);
+            const totalDecs = parseInt(document.getElementById('totalDecs').value, 10);
 
             // Get result elements
             const approxRowsEl = document.getElementById('approxRowsResult');
             const shapingRateEl = document.getElementById('shapingRateResult');
             const actualRowsEl = document.getElementById('actualRowsResult');
 
+            // --- UPDATED LOGIC ---
+            // Assuming 2 decreases per decrease row (e.g., one on each side).
+            // This is the number of rows where you will perform a decrease action.
+            const numDecRows = totalDecs / 2;
+
             // Check for valid inputs
-            if (isNaN(shapingLength) || isNaN(rowGauge) || isNaN(numDecs) || numDecs <= 1) {
-                approxRowsEl.textContent = 'Please enter valid numbers.';
-                shapingRateEl.textContent = 'Number of decreases must be > 1.';
+            if (isNaN(shapingLength) || isNaN(rowGauge) || isNaN(totalDecs) || totalDecs <= 0) {
+                approxRowsEl.textContent = 'Please enter valid, positive numbers.';
+                shapingRateEl.textContent = '';
+                actualRowsEl.textContent = '';
+                return;
+            }
+            if (numDecRows <= 1) {
+                approxRowsEl.textContent = 'Calculation requires more than one decrease row (more than 2 total decreases).';
+                shapingRateEl.textContent = '';
                 actualRowsEl.textContent = '';
                 return;
             }
 
-            // --- Calculations based on the sketch ---
+            // --- Calculations based on the sketch with corrected logic ---
 
             // 1. Approximate # rows
             const approximateRows = shapingLength * rowGauge;
             approxRowsEl.textContent = `Approximate # rows: ${approximateRows.toFixed(1)}`;
 
             // 2. Shaping rate
-            // approx # rows ÷ (# decs - 1), rounded to nearest even row
-            let shapingRate = approximateRows / (numDecs - 1);
-            shapingRate = Math.round(shapingRate / 2) * 2; // Round to the nearest even number
-            shapingRateEl.textContent = `Shaping rate: ${shapingRate}`;
+            // The number of intervals is between the decrease ROWS, not individual stitches.
+            let shapingRate = approximateRows / (numDecRows - 1);
+            // Round to the nearest even number as per the original sketch
+            shapingRate = Math.round(shapingRate / 2) * 2; 
+            shapingRateEl.textContent = `Shaping Rate: Decrease every ${shapingRate} rows.`;
             
             // 3. Actual number of rows needed
-            // [shaping rate * (# decs - 1)] + 1
-            const actualRows = (shapingRate * (numDecs - 1)) + 1;
+            // [shaping rate * (number of decrease rows - 1)] + 1
+            const actualRows = (shapingRate * (numDecRows - 1)) + 1;
             actualRowsEl.textContent = `Actual number of rows needed: ${actualRows}`;
         }
     </script>
