@@ -27,10 +27,13 @@
       margin: 0 0 0.5rem;
     }
 
+    /* ----------- LAYOUT ----------- */
     .container {
       display: grid;
       grid-template-rows: auto auto;
-      gap: 3rem;
+      gap: 2rem;
+      max-width: 900px; /* tighten overall width */
+      margin: 0 auto;
     }
 
     /* --- TOP CANVAS / PLACEHOLDER --- */
@@ -40,13 +43,25 @@
       height: 450px;
       border: 4px solid #000;
       margin: 0 auto;
+
+      /* center heading */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .chart h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.2;
     }
 
     /* --- LOWER SECTION --- */
     .lower {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 3rem;
+      gap: 2rem; /* slightly tighter */
       align-items: start;
     }
 
@@ -108,13 +123,15 @@
 </head>
 <body>
   <div class="container">
-    <!-- Top placeholder rectangle -->
-    <div class="chart" aria-label="Working area / diagram placeholder"></div>
+    <!-- Top rectangle with heading -->
+    <div class="chart" aria-label="Shaping Calculator">
+      <h1>Shaping Calculator</h1>
+    </div>
 
     <!-- Bottom section: formulas + interactive table -->
     <div class="lower">
       <section class="formula">
-        <h2>Shaping length</h2>
+        <h2>Shaping Length Formulas</h2>
 
         <h3 class="blue">Approximate # rows</h3>
         <p class="calc">shaping length × row gauge</p>
