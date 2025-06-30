@@ -1,197 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knitting Shaping Calculator</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-        .header-box {
-            border: 2px solid black;
-            height: 250px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            color: #555;
-            background-color: #fff;
-            text-align: center;
-        }
-        .main-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .calculator {
-            flex: 1;
-            min-width: 300px;
-        }
-        .results {
-            flex: 1;
-            min-width: 250px;
-        }
-        .input-group {
-            margin-bottom: 20px;
-        }
-        .input-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .result-box {
-            border: 1px solid #ccc;
-            padding: 15px;
-            min-height: 50px;
-            margin-bottom: -1px; /* To make borders overlap */
-            background-color: #fff;
-            display: flex;
-            align-items: center;
-        }
-        .footer-note, .assumption-note {
-            margin-top: 20px;
-            font-style: italic;
-            color: #666;
-        }
-        button {
-            padding: 10px 15px;
-            font-size: 1em;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        h2 {
-           color: #333;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shaping Length Calculator</title>
+  <style>
+    :root {
+      --accent: #0033cc;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      color: #111;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    h1,
+    h2 {
+      margin: 0 0 0.5rem;
+    }
+
+    .container {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 3rem;
+    }
+
+    /* --- TOP CANVAS / PLACEHOLDER --- */
+    .chart {
+      width: 100%;
+      max-width: 750px;
+      height: 450px;
+      border: 4px solid #000;
+      margin: 0 auto;
+    }
+
+    /* --- LOWER SECTION --- */
+    .lower {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* --- LEFT COLUMN --- */
+    .formula {
+      max-width: 35rem;
+    }
+
+    .formula h2 {
+      font-size: 1.4rem;
+    }
+
+    .formula h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.25rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .formula .calc {
+      font-style: italic;
+      font-size: 1.05rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .formula .sub {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .blue {
+      color: var(--accent);
+    }
+
+    /* --- RIGHT COLUMN TABLE --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid #aaa;
+      height: 90px;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <!-- Top placeholder rectangle -->
+    <div class="chart" aria-label="Working area / diagram placeholder"></div>
 
-    <div class="container">
-        <div class="header-box">
-            Your Knitting Project
-        </div>
+    <!-- Bottom section: formulas + input table -->
+    <div class="lower">
+      <section class="formula">
+        <h2>Shaping length</h2>
 
-        <div class="main-content">
-            <div class="calculator">
-                <h2>Shaping Calculator</h2>
+        <h3 class="blue">Approximate # rows</h3>
+        <p class="calc">shaping length × row gauge</p>
 
-                <div class="input-group">
-                    <label for="shapingLength">Shaping Length (e.g., in inches or cm)</label>
-                    <input type="number" id="shapingLength" placeholder="e.g., 10">
-                </div>
+        <h3>Shaping rate</h3>
+        <p class="calc">approx # rows ÷ (<em># decs – 1</em>)<br />
+          <span class="sub">rounded to nearest even row</span>
+        </p>
 
-                <div class="input-group">
-                    <label for="rowGauge">Row Gauge (rows per unit of length)</label>
-                    <input type="number" id="rowGauge" placeholder="e.g., 5">
-                </div>
-                 <div class="input-group">
-                    <label for="totalDecs">Total Stitches to Decrease</label>
-                    <input type="number" id="totalDecs" placeholder="e.g., 24">
-                </div>
-                
-                <button onclick="calculateShaping()">Calculate</button>
+        <h3 class="blue">Actual number of rows needed</h3>
+        <p class="calc">[shaping rate × (<em># decs – 1</em>)] + 1</p>
 
-                <div class="assumption-note">
-                    <p><strong>Note:</strong> This calculation assumes you are decreasing 2 stitches on each decrease row (e.g., one on each side).</p>
-                </div>
+        <p class="sub">If significantly over or under Approximate rows, adjust starting row of shaping up or down a few rows.</p>
+      </section>
 
-                <div class="footer-note">
-                    <p>If the actual rows needed is significantly over or under the approximate rows, consider adjusting your plan.</p>
-                </div>
-
-            </div>
-
-            <div class="results">
-                <h2>Results</h2>
-                <div class="result-box">
-                    <span id="approxRowsResult">Approximate # rows will appear here.</span>
-                </div>
-                <div class="result-box">
-                     <span id="shapingRateResult">Shaping rate will appear here.</span>
-                </div>
-                <div class="result-box">
-                    <span id="actualRowsResult">Actual number of rows needed will appear here.</span>
-                </div>
-            </div>
-        </div>
+      <section>
+        <table aria-label="Work table">
+          <tr><td></td></tr>
+          <tr><td></td></tr>
+          <tr><td></td></tr>
+          <tr><td></td></tr>
+        </table>
+      </section>
     </div>
-
-    <script>
-        function calculateShaping() {
-            // Get values from input fields
-            const shapingLength = parseFloat(document.getElementById('shapingLength').value);
-            const rowGauge = parseFloat(document.getElementById('rowGauge').value);
-            const totalDecs = parseInt(document.getElementById('totalDecs').value, 10);
-
-            // Get result elements
-            const approxRowsEl = document.getElementById('approxRowsResult');
-            const shapingRateEl = document.getElementById('shapingRateResult');
-            const actualRowsEl = document.getElementById('actualRowsResult');
-
-            // --- UPDATED LOGIC ---
-            // Assuming 2 decreases per decrease row (e.g., one on each side).
-            // This is the number of rows where you will perform a decrease action.
-            const numDecRows = totalDecs / 2;
-
-            // Check for valid inputs
-            if (isNaN(shapingLength) || isNaN(rowGauge) || isNaN(totalDecs) || totalDecs <= 0) {
-                approxRowsEl.textContent = 'Please enter valid, positive numbers.';
-                shapingRateEl.textContent = '';
-                actualRowsEl.textContent = '';
-                return;
-            }
-            if (numDecRows <= 1) {
-                approxRowsEl.textContent = 'Calculation requires more than one decrease row (more than 2 total decreases).';
-                shapingRateEl.textContent = '';
-                actualRowsEl.textContent = '';
-                return;
-            }
-
-            // --- Calculations based on the sketch with corrected logic ---
-
-            // 1. Approximate # rows
-            const approximateRows = shapingLength * rowGauge;
-            approxRowsEl.textContent = `Approximate # rows: ${approximateRows.toFixed(1)}`;
-
-            // 2. Shaping rate
-            // The number of intervals is between the decrease ROWS, not individual stitches.
-            let shapingRate = approximateRows / (numDecRows - 1);
-            // Round to the nearest even number as per the original sketch
-            shapingRate = Math.round(shapingRate / 2) * 2; 
-            shapingRateEl.textContent = `Shaping Rate: Decrease every ${shapingRate} rows.`;
-            
-            // 3. Actual number of rows needed
-            // [shaping rate * (number of decrease rows - 1)] + 1
-            const actualRows = (shapingRate * (numDecRows - 1)) + 1;
-            actualRowsEl.textContent = `Actual number of rows needed: ${actualRows}`;
-        }
-    </script>
-
+  </div>
 </body>
 </html>
