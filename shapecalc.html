@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workplace Psychological Safety Assessment</title>
+    <style>
+        /* CSS for Styling */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        h1, h2 {
+            color: #003366;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .factor-section {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .question-table th, .question-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .question-table th {
+            background-color: #f9f9f9;
+        }
+        .question-table td:first-child {
+            width: 60%;
+        }
+        .question-table td {
+            text-align: center;
+        }
+        input[type="radio"] {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+        .totals-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eef3f7;
+            border: 1px solid #c8d9e5;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .section-total, .grand-total-value {
+            color: #005a9c;
+            display: inline-block;
+            min-width: 40px;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Important for padding */
+        }
+        .grand-total-container {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .grand-total-container h2 {
+            color: white;
+            border: none;
+            margin: 0;
+        }
+        .grand-total-value {
+            color: #ffcc00;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Workplace Psychological Safety Assessment</h1>
+
+    <!-- ======================= SECTION 1 ======================= -->
+    <div class="factor-section" id="factor1">
+        <h2>1. Organizational Culture</h2>
+        <table class="question-table">
+            <thead>
+                <tr>
+                    <th>Statement</th>
+                    <th>1<br>Disagree</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5<br>Agree</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>My employer is committed to ensuring a mentally healthy workplace.</td>
+                    <td><input type="radio" name="q1_1" value="1"></td>
+                    <td><input type="radio" name="q1_1" value="2"></td>
+                    <td><input type="radio" name="q1_1" value="3"></td>
+                    <td><input type="radio" name="q1_1" value="4"></td>
+                    <td><input type="radio" name="q1_1" value="5"></td>
+                </tr>
+                <tr>
+                    <td>In my workplace, we are encouraged to talk about mental health.</td>
+                    <td><input type="radio" name="q1_2" value="1"></td>
+                    <td><input type="radio" name="q1_2" value="2"></td>
+                    <td><input type="radio" name="q1_2" value="3"></td>
+                    <td><input type="radio" name="q1_2" value="4"></td>
+                    <td><input type="radio" name="q1_2" value="5"></td>
+                </tr>
+                 <tr>
+                    <td>My employer makes an effort to prevent harm to employees from harassment, discrimination, or violence.</td>
+                    <td><input type="radio" name="q1_3" value="1"></td>
+                    <td><input type="radio" name="q1_3" value="2"></td>
+                    <td><input type="radio" name="q1_3" value="3"></td>
+                    <td><input type="radio" name="q1_3" value="4"></td>
+                    <td><input type="radio" name="q1_3" value="5"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="totals-box">
+            Total for this Factor: <span class="section-total" id="total-factor1">0</span>
+        </div>
+        <h3>Action Planning</h3>
+        <p>Your thoughts on this factor, potential improvements, etc.</p>
+        <textarea placeholder="Type your notes here..."></textarea>
+    </div>
+
+    <!-- ======================= SECTION 2 ======================= -->
+    <div class="factor-section" id="factor2">
+        <h2>2. Psychological and Social Support</h2>
+        <table class="question-table">
+             <thead>
+                <tr>
+                    <th>Statement</th>
+                    <th>1<br>Disagree</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5<br>Agree</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>My immediate supervisor cares about my emotional well-being.</td>
+                    <td><input type="radio" name="q2_1" value="1"></td>
+                    <td><input type="radio" name="q2_1" value="2"></td>
+                    <td><input type="radio" name="q2_1" value="3"></td>
+                    <td><input type="radio" name="q2_1" value="4"></td>
+                    <td><input type="radio" name="q2_1" value="5"></td>
+                </tr>
+                <tr>
+                    <td>People in my team help each other with their well-being.</td>
+                    <td><input type="radio" name="q2_2" value="1"></td>
+                    <td><input type="radio" name="q2_2" value="2"></td>
+                    <td><input type="radio" name="q2_2" value="3"></td>
+                    <td><input type="radio" name="q2_2" value="4"></td>
+                    <td><input type="radio" name="q2_2" value="5"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="totals-box">
+            Total for this Factor: <span class="section-total" id="total-factor2">0</span>
+        </div>
+        <h3>Action Planning</h3>
+        <p>Your thoughts on this factor, potential improvements, etc.</p>
+        <textarea placeholder="Type your notes here..."></textarea>
+    </div>
+    
+    <!-- You would continue adding sections 3 through 13 here -->
+
+    <!-- ======================= GRAND TOTAL ======================= -->
+    <div class="grand-total-container">
+        <h2>GRAND TOTAL</h2>
+        <span class="grand-total-value">0</span>
+    </div>
+
+
+    <script>
+        // JavaScript for Calculations
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.factor-section');
+            
+            // Listen for any change inside the main body of the page
+            document.body.addEventListener('change', (event) => {
+                // Check if the thing that changed was a radio button
+                if (event.target.type === 'radio') {
+                    // Find the parent section of the changed radio button
+                    const parentSection = event.target.closest('.factor-section');
+                    if (parentSection) {
+                        calculateSectionTotal(parentSection);
+                    }
+                }
+            });
+
+            function calculateSectionTotal(section) {
+                let sectionTotal = 0;
+                // Find all *checked* radio buttons within this section
+                const checkedRadios = section.querySelectorAll('input[type="radio"]:checked');
+                
+                checkedRadios.forEach(radio => {
+                    // Add the value of the radio button to the total
+                    sectionTotal += parseInt(radio.value, 10);
+                });
+
+                // Update the display for the section's total
+                section.querySelector('.section-total').textContent = sectionTotal;
+                
+                // After updating a section, always recalculate the grand total
+                calculateGrandTotal();
+            }
+
+            function calculateGrandTotal() {
+                let grandTotal = 0;
+                // Find all the section total display elements
+                const sectionTotals = document.querySelectorAll('.section-total');
+                
+                sectionTotals.forEach(totalElement => {
+                    grandTotal += parseInt(totalElement.textContent, 10);
+                });
+
+                // Update the grand total display
+                document.querySelector('.grand-total-value').textContent = grandTotal;
+            }
+        });
+    </script>
+
+</body>
+</html>
