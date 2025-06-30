@@ -3,228 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workplace Psychological Safety Assessment</title>
+    <title>Knitting Shaping Calculator</title>
     <style>
-        /* CSS for Styling */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0 auto;
-            max-width: 900px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             padding: 20px;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-        h1, h2 {
-            color: #003366;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 10px;
-        }
-        .factor-section {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        .question-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        .question-table th, .question-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        .question-table th {
             background-color: #f9f9f9;
         }
-        .question-table td:first-child {
-            width: 60%;
+        .container {
+            max-width: 800px;
+            width: 100%;
         }
-        .question-table td {
-            text-align: center;
+        .header-box {
+            border: 2px solid black;
+            height: 250px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: #555;
+            background-color: #fff;
         }
-        input[type="radio"] {
-            cursor: pointer;
-            transform: scale(1.2);
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-        .totals-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #eef3f7;
-            border: 1px solid #c8d9e5;
-            border-radius: 5px;
-            font-size: 1.2em;
+        .calculator {
+            flex: 1;
+            min-width: 300px;
+        }
+        .results {
+            flex: 1;
+            min-width: 250px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
             font-weight: bold;
-            text-align: right;
+            margin-bottom: 5px;
         }
-        .section-total {
-            color: #005a9c;
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .formula {
+            font-family: monospace;
+            background-color: #eee;
+            padding: 5px;
+            border-radius: 3px;
             display: inline-block;
-            min-width: 40px;
-            text-align: center;
         }
-        .grand-total-container {
-            background-color: #003366;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
+        .result-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            min-height: 50px;
+            margin-bottom: -1px; /* To make borders overlap */
+            background-color: #fff;
+            display: flex;
+            align-items: center;
         }
-        .grand-total-container h2 {
+        .footer-note {
+            margin-top: 20px;
+            font-style: italic;
+            color: #666;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: #007bff;
             color: white;
             border: none;
-            margin: 0;
-        }
-        .grand-total-value {
-            color: #ffcc00;
-            font-size: 2em;
-            display: block;
+            border-radius: 5px;
+            cursor: pointer;
             margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+           color: #333;
         }
     </style>
 </head>
 <body>
 
-    <h1>Workplace Psychological Safety Assessment</h1>
+    <div class="container">
+        <div class="header-box">
+            Your Knitting Project
+        </div>
 
-    <!-- ======================= SECTION 1: ORGANIZATIONAL CULTURE ======================= -->
-    <div class="factor-section" id="factor1">
-        <h2>1. Organizational Culture</h2>
-        <table class="question-table">
-            <thead>
-                <tr>
-                    <th>Statement</th>
-                    <th>1<br>Disagree</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5<br>Agree</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Replace with your questions -->
-                <tr>
-                    <td>My employer is committed to ensuring a mentally healthy workplace.</td>
-                    <td><input type="radio" name="q1_1" value="1"></td>
-                    <td><input type="radio" name="q1_1" value="2"></td>
-                    <td><input type="radio" name="q1_1" value="3"></td>
-                    <td><input type="radio" name="q1_1" value="4"></td>
-                    <td><input type="radio" name="q1_1" value="5"></td>
-                </tr>
-                <tr>
-                    <td>In my workplace, we are encouraged to talk about mental health.</td>
-                    <td><input type="radio" name="q1_2" value="1"></td>
-                    <td><input type="radio" name="q1_2" value="2"></td>
-                    <td><input type="radio" name="q1_2" value="3"></td>
-                    <td><input type="radio" name="q1_2" value="4"></td>
-                    <td><input type="radio" name="q1_2" value="5"></td>
-                </tr>
-                 <tr>
-                    <td>My employer makes an effort to prevent harm to employees from harassment, discrimination, or violence.</td>
-                    <td><input type="radio" name="q1_3" value="1"></td>
-                    <td><input type="radio" name="q1_3" value="2"></td>
-                    <td><input type="radio" name="q1_3" value="3"></td>
-                    <td><input type="radio" name="q1_3" value="4"></td>
-                    <td><input type="radio" name="q1_3" value="5"></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="totals-box">
-            Total for this Factor: <span class="section-total" id="total-factor1">0</span>
+        <div class="main-content">
+            <div class="calculator">
+                <h2>Shaping Calculator</h2>
+
+                <div class="input-group">
+                    <label for="shapingLength">Shaping Length (e.g., in inches or cm)</label>
+                    <input type="number" id="shapingLength" placeholder="e.g., 10">
+                </div>
+
+                <div class="input-group">
+                    <label for="rowGauge">Row Gauge (rows per unit of length)</label>
+                    <input type="number" id="rowGauge" placeholder="e.g., 5">
+                </div>
+                 <div class="input-group">
+                    <label for="numDecs">Number of Decreases (# decs)</label>
+                    <input type="number" id="numDecs" placeholder="e.g., 15">
+                </div>
+                
+                <button onclick="calculateShaping()">Calculate</button>
+
+                <div class="footer-note">
+                    <p>If significantly over or under Approximate rows, adjust starting row of shaping up or down a few rows.</p>
+                </div>
+
+            </div>
+
+            <div class="results">
+                <h2>Results</h2>
+                <div class="result-box">
+                    <span id="approxRowsResult">Approximate # rows will appear here.</span>
+                </div>
+                <div class="result-box">
+                     <span id="shapingRateResult">Shaping rate will appear here.</span>
+                </div>
+                <div class="result-box">
+                    <span id="actualRowsResult">Actual number of rows needed will appear here.</span>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- ======================= SECTION 2: PSYCHOLOGICAL AND SOCIAL SUPPORT ======================= -->
-    <div class="factor-section" id="factor2">
-        <h2>2. Psychological and Social Support</h2>
-        <table class="question-table">
-             <thead>
-                <tr>
-                    <th>Statement</th>
-                    <th>1<br>Disagree</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5<br>Agree</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Replace with your questions -->
-                <tr>
-                    <td>My immediate supervisor cares about my emotional well-being.</td>
-                    <td><input type="radio" name="q2_1" value="1"></td>
-                    <td><input type="radio" name="q2_1" value="2"></td>
-                    <td><input type="radio" name="q2_1" value="3"></td>
-                    <td><input type="radio" name="q2_1" value="4"></td>
-                    <td><input type="radio" name="q2_1" value="5"></td>
-                </tr>
-                <tr>
-                    <td>People in my team help each other with their well-being.</td>
-                    <td><input type="radio" name="q2_2" value="1"></td>
-                    <td><input type="radio" name="q2_2" value="2"></td>
-                    <td><input type="radio" name="q2_2" value="3"></td>
-                    <td><input type="radio" name="q2_2" value="4"></td>
-                    <td><input type="radio" name="q2_2" value="5"></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="totals-box">
-            Total for this Factor: <span class="section-total" id="total-factor2">0</span>
-        </div>
-    </div>
-    
-    <!-- PATTERN TO REPEAT: Copy and paste the whole "factor-section" div for factors 3 through 13 -->
-    <!-- Make sure to update the id (e.g., "factor3"), h2 title, and radio button names (e.g., "q3_1") for each new section -->
-
-
-    <!-- ======================= GRAND TOTAL ======================= -->
-    <div class="grand-total-container">
-        <h2>GRAND TOTAL</h2>
-        <span class="grand-total-value">0</span>
-    </div>
-
 
     <script>
-        // JavaScript for Calculations (This part does not need to be changed)
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('assessmentForm');
+        function calculateShaping() {
+            // Get values from input fields
+            const shapingLength = parseFloat(document.getElementById('shapingLength').value);
+            const rowGauge = parseFloat(document.getElementById('rowGauge').value);
+            const numDecs = parseInt(document.getElementById('numDecs').value, 10);
 
-            // Listen for any change on a radio button
-            document.body.addEventListener('change', (event) => {
-                if (event.target.type === 'radio') {
-                    const parentSection = event.target.closest('.factor-section');
-                    if (parentSection) {
-                        calculateSectionTotal(parentSection);
-                    }
-                }
-            });
+            // Get result elements
+            const approxRowsEl = document.getElementById('approxRowsResult');
+            const shapingRateEl = document.getElementById('shapingRateResult');
+            const actualRowsEl = document.getElementById('actualRowsResult');
 
-            function calculateSectionTotal(section) {
-                let sectionTotal = 0;
-                const checkedRadios = section.querySelectorAll('input[type="radio"]:checked');
-                
-                checkedRadios.forEach(radio => {
-                    sectionTotal += parseInt(radio.value, 10);
-                });
-
-                section.querySelector('.section-total').textContent = sectionTotal;
-                calculateGrandTotal();
+            // Check for valid inputs
+            if (isNaN(shapingLength) || isNaN(rowGauge) || isNaN(numDecs) || numDecs <= 1) {
+                approxRowsEl.textContent = 'Please enter valid numbers.';
+                shapingRateEl.textContent = 'Number of decreases must be > 1.';
+                actualRowsEl.textContent = '';
+                return;
             }
 
-            function calculateGrandTotal() {
-                let grandTotal = 0;
-                const sectionTotals = document.querySelectorAll('.section-total');
-                
-                sectionTotals.forEach(totalElement => {
-                    grandTotal += parseInt(totalElement.textContent, 10);
-                });
+            // --- Calculations based on the sketch ---
 
-                document.querySelector('.grand-total-value').textContent = grandTotal;
-            }
-        });
+            // 1. Approximate # rows
+            const approximateRows = shapingLength * rowGauge;
+            approxRowsEl.textContent = `Approximate # rows: ${approximateRows.toFixed(1)}`;
+
+            // 2. Shaping rate
+            // approx # rows ÷ (# decs - 1), rounded to nearest even row
+            let shapingRate = approximateRows / (numDecs - 1);
+            shapingRate = Math.round(shapingRate / 2) * 2; // Round to the nearest even number
+            shapingRateEl.textContent = `Shaping rate: ${shapingRate}`;
+            
+            // 3. Actual number of rows needed
+            // [shaping rate * (# decs - 1)] + 1
+            const actualRows = (shapingRate * (numDecs - 1)) + 1;
+            actualRowsEl.textContent = `Actual number of rows needed: ${actualRows}`;
+        }
     </script>
 
 </body>
