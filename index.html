@@ -58,21 +58,13 @@
             border-radius: 5px;
             font-size: 1.2em;
             font-weight: bold;
+            text-align: right;
         }
-        .section-total, .grand-total-value {
+        .section-total {
             color: #005a9c;
             display: inline-block;
             min-width: 40px;
             text-align: center;
-        }
-        textarea {
-            width: 100%;
-            min-height: 80px;
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Important for padding */
         }
         .grand-total-container {
             background-color: #003366;
@@ -89,6 +81,8 @@
         .grand-total-value {
             color: #ffcc00;
             font-size: 2em;
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -96,7 +90,7 @@
 
     <h1>Workplace Psychological Safety Assessment</h1>
 
-    <!-- ======================= SECTION 1 ======================= -->
+    <!-- ======================= SECTION 1: ORGANIZATIONAL CULTURE ======================= -->
     <div class="factor-section" id="factor1">
         <h2>1. Organizational Culture</h2>
         <table class="question-table">
@@ -111,6 +105,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Replace with your questions -->
                 <tr>
                     <td>My employer is committed to ensuring a mentally healthy workplace.</td>
                     <td><input type="radio" name="q1_1" value="1"></td>
@@ -140,12 +135,9 @@
         <div class="totals-box">
             Total for this Factor: <span class="section-total" id="total-factor1">0</span>
         </div>
-        <h3>Action Planning</h3>
-        <p>Your thoughts on this factor, potential improvements, etc.</p>
-        <textarea placeholder="Type your notes here..."></textarea>
     </div>
 
-    <!-- ======================= SECTION 2 ======================= -->
+    <!-- ======================= SECTION 2: PSYCHOLOGICAL AND SOCIAL SUPPORT ======================= -->
     <div class="factor-section" id="factor2">
         <h2>2. Psychological and Social Support</h2>
         <table class="question-table">
@@ -160,6 +152,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Replace with your questions -->
                 <tr>
                     <td>My immediate supervisor cares about my emotional well-being.</td>
                     <td><input type="radio" name="q2_1" value="1"></td>
@@ -181,12 +174,11 @@
         <div class="totals-box">
             Total for this Factor: <span class="section-total" id="total-factor2">0</span>
         </div>
-        <h3>Action Planning</h3>
-        <p>Your thoughts on this factor, potential improvements, etc.</p>
-        <textarea placeholder="Type your notes here..."></textarea>
     </div>
     
-    <!-- You would continue adding sections 3 through 13 here -->
+    <!-- PATTERN TO REPEAT: Copy and paste the whole "factor-section" div for factors 3 through 13 -->
+    <!-- Make sure to update the id (e.g., "factor3"), h2 title, and radio button names (e.g., "q3_1") for each new section -->
+
 
     <!-- ======================= GRAND TOTAL ======================= -->
     <div class="grand-total-container">
@@ -196,15 +188,13 @@
 
 
     <script>
-        // JavaScript for Calculations
+        // JavaScript for Calculations (This part does not need to be changed)
         document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.factor-section');
-            
-            // Listen for any change inside the main body of the page
+            const form = document.getElementById('assessmentForm');
+
+            // Listen for any change on a radio button
             document.body.addEventListener('change', (event) => {
-                // Check if the thing that changed was a radio button
                 if (event.target.type === 'radio') {
-                    // Find the parent section of the changed radio button
                     const parentSection = event.target.closest('.factor-section');
                     if (parentSection) {
                         calculateSectionTotal(parentSection);
@@ -214,31 +204,24 @@
 
             function calculateSectionTotal(section) {
                 let sectionTotal = 0;
-                // Find all *checked* radio buttons within this section
                 const checkedRadios = section.querySelectorAll('input[type="radio"]:checked');
                 
                 checkedRadios.forEach(radio => {
-                    // Add the value of the radio button to the total
                     sectionTotal += parseInt(radio.value, 10);
                 });
 
-                // Update the display for the section's total
                 section.querySelector('.section-total').textContent = sectionTotal;
-                
-                // After updating a section, always recalculate the grand total
                 calculateGrandTotal();
             }
 
             function calculateGrandTotal() {
                 let grandTotal = 0;
-                // Find all the section total display elements
                 const sectionTotals = document.querySelectorAll('.section-total');
                 
                 sectionTotals.forEach(totalElement => {
                     grandTotal += parseInt(totalElement.textContent, 10);
                 });
 
-                // Update the grand total display
                 document.querySelector('.grand-total-value').textContent = grandTotal;
             }
         });
